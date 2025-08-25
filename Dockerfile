@@ -2,7 +2,12 @@ FROM node:24-bookworm-slim
 
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+        zlib1g zlib1g-dev \
+        libpam-modules libpam-modules-bin && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
 
