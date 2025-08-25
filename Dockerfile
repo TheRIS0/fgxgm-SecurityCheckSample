@@ -1,13 +1,13 @@
-FROM node:24.6.0
+FROM node:24-bullseye-slim
 
-RUN npm install -g npm@9.1.3
+WORKDIR /usr/src/app
 
-ADD package.json .
-ADD index.js .
-ADD build .
+COPY package.json package-lock.json ./
+
+RUN npm install --production
+
 COPY . .
-RUN npm install
 
 EXPOSE 8080
 
-CMD [ "node", "index.js" ]
+CMD ["node", "index.js"]
